@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8" />
+<title>Sistema de Locadora de Veículos</title>
+
+<!--/*/ <th:block th:include="fragments/geral.html :: headerfiles">
+        </th:block> /*/-->
+</head>
+<body>
+	<header th:insert="fragments/geral.html :: header"></header>
+
+	<div class="container my-2">
+		<h2>Editar Carros</h2>
+		<form action="#" th:action="@{/veiculos/carros/salvar}" th:object="${carros}" method="POST">
+			<input type="hidden" id="id" th:field="*{id}">
+			
+			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"></span>
+			<input type="text" th:field="*{nome}" placeholder="Nome" class="form-control mb-4 col-4">
+      		
+      		<span th:if="${#fields.hasErrors('placa')}" th:errors="*{placa}" class="text-danger"></span>
+      		<input type="text" th:field="*{placa}" placeholder="Placa" class="form-control mb-4 col-4">
+      		
+      		<input type="date" th:field="*{dataAquisicao}" placeholder="Data de Aquisição" class="form-control mb-4 col-4">
+      		
+      		<span th:if="${#fields.hasErrors('cor')}" th:errors="*{cor}" class="text-danger"></span>
+      		<input type="text" th:field="*{cor}" placeholder="Cor" class="form-control mb-4 col-4">
+      		
+      		<span th:if="${#fields.hasErrors('ano')}" th:errors="*{ano}" class="text-danger"></span>
+			<input type="text" th:field="*{ano}" placeholder="Ano" class="form-control mb-4 col-4">
+      		
+      		<span th:if="${#fields.hasErrors('quilometragem')}" th:errors="*{quilometragem}" class="text-danger"></span>
+      		<input type="text" th:field="*{quilometragem}" placeholder="Quilometragem" class="form-control mb-4 col-4">
+      		
+			<button type="submit" class="btn btn-info col-2">Salvar</button>
+		</form>
+		<hr>
+		<a th:href="@{/veiculos/carros}">Retornar para a lista de carros</a>
+	</div>
+</body>
+</html>

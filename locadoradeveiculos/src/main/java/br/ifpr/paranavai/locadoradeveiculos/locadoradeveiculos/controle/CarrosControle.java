@@ -5,14 +5,21 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.Carros;
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.CarrosRepositorio;
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.dtos.CarrosListaDTO;
 
@@ -44,6 +51,44 @@ public class CarrosControle {
 		}
 		
 		return "veiculos/carros/index";
+	}
+	
+	@GetMapping("/veiculos/carros/novo")
+	public String novoCarro(Model model) {
+		model.addAttribute("carros", new Carros(""));
+		return "veiculos/carros/form";
+	}
+	
+	@GetMapping("/veiculos/carros/{id}")
+	public String alterarCarro(@PathVariable("id") long id, Model model) {
+		Optional<Carros> carrosOpt = carrosRepositorio.findCompletoById(id);
+		if (!carrosOpt.isPresent()) {
+			throw new IllegalArgumentException("Carro inválido.");
+		}
+		
+		model.addAttribute("carros", carrosOpt.get());
+		return "veiculos/carros/form";
+	}
+	
+	@PostMapping("/veiculos/carros/salvar")
+	public String salvarCarro(@Valid @ModelAttribute("carros") Carros carros, BindingResult bindingResult, Model model) {
+		if (bindingResult.hasErrors()) {
+			return "veiculos/carros/form";
+		}
+		
+		carrosRepositorio.save(carros);
+		return "redirect:/veiculos/carros";
+	}
+	
+	@GetMapping("/veiculos/carros/excluir/{id}")
+	public String excluirCarro(@PathVariable("id") long id) {
+		Optional<Carros> carroOpt = carrosRepositorio.findById(id);
+		if (carroOpt.isPresent()) {
+			carrosRepositorio.delete(carroOpt.get());
+			return "redirect:/veiculos/carros";
+		} else {
+			throw new IllegalArgumentException("Carro inválido.");
+		}
 	}
 
 }
