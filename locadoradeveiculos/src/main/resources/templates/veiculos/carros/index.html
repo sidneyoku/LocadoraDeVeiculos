@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+<meta charset="UTF-8">
+<title>Sistema de Locadora de Veículos</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
+
+</head>
+<body>
+	<!-- <header th:insert="fragments/geral.html :: header"></header> -->
+	
+	<div class="container my-2">
+		
+		<h1>Cadastro de Veículos</h1>
+		<table border="1" class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Telefone</th>
+					<th>Email</th>
+					<!-- <th>Departamento</th> -->
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="carro : ${listaCarros.content}">
+					<td th:text="${carro.nome}"></td>
+					<td th:text="${carro.placa}"></td>
+					<td th:text="${carro.cor}"></td>
+					<!--  <td th:text="${pessoa.departamento}"></td> -->
+					
+				</tr>
+			</tbody>
+		</table>
+		<nav aria-label="...">
+		    <ul class="pagination">
+			    <li th:if="${listaCarros.totalPages > 0}" th:each="numeroPagina : ${numerosPaginas}" 
+			    	th:class="${numeroPagina==listaCarros.number + 1} ? 'page-item active' : 'page-item'">
+			    	<a class="page-link" th:href="@{/rh/pessoas(size=${listaCarros.size}, page=${numeroPagina})}"
+			        th:text=${numeroPagina}></a>
+			    </li>
+		    </ul>
+		</nav>
+	</div>
+</body>
+</html>
