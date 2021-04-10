@@ -10,6 +10,8 @@ import org.springframework.stereotype.Component;
 
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.Carros;
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.CarrosRepositorio;
+import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.Cliente;
+import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.ClienteRepositorio;
 
 @Component
 @Transactional
@@ -17,6 +19,9 @@ public class PopulacaoInicialBanco implements CommandLineRunner {
 	
 	@Autowired
 	private CarrosRepositorio carrosRepositorio;
+	
+	@Autowired
+	private ClienteRepositorio clienteRepositorio;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -36,6 +41,21 @@ public class PopulacaoInicialBanco implements CommandLineRunner {
 		
 		carrosRepositorio.save(carros1);
 		carrosRepositorio.save(carros2);
+		
+		Cliente cliente1 = new Cliente("Sidney");
+		cliente1.setDataNascimento(LocalDate.now());
+		cliente1.setCpf("01234567890");
+		cliente1.setEmail("sidney@locadoradeveiculosteste.com.br");
+		cliente1.setTelefone("44123456789");
+		
+		Cliente cliente2 = new Cliente("Adriel");
+		cliente2.setDataNascimento(LocalDate.now());
+		cliente2.setCpf("01234567890");
+		cliente2.setEmail("adriel@locadoradeveiculosteste.com.br");
+		cliente2.setTelefone("41123456789");
+		
+		clienteRepositorio.save(cliente1);
+		clienteRepositorio.save(cliente2);
 		
 	}
 
