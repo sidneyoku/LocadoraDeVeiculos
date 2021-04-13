@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8" />
+<title>Sistema de Locadora de Veículos</title>
+
+<!--/*/ <th:block th:include="fragments/geral.html :: headerfiles">
+        </th:block> /*/-->
+
+</head>
+<body>
+	<header th:insert="fragments/geral.html :: header"></header>
+	
+	<div class="container my-2">
+		<a th:href="@{/funcionario/novo}" class="btn btn-primary btn-sm mb-3">Incluir Funcionario</a>
+		<h1>Cadastro de Funcionario</h1>
+		<table border="1" class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>Nome</th>
+					<th>Data Nascimento</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="funcionario : ${listaFuncionario.content}">
+					<td th:text="${funcionario.nome}"></td>
+					<td th:text="${funcionario.usuario}"></td>
+					<td>
+						<a th:href="@{/funcionario/{id}(id=${funcionario.id})}" class="btn btn-primary">Alterar</a>
+						<a th:href="@{/funcionario/excluir/{id}(id=${funcionario.id})}" class="btn btn-danger">Excluir</a>			
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<nav aria-label="...">
+		    <ul class="pagination">
+			    <li th:if="${listaFuncionario.totalPages > 0}" th:each="numeroPagina : ${numerosPaginas}" 
+			    	th:class="${numeroPagina==listaFuncionario.number + 1} ? 'page-item active' : 'page-item'">
+			    	<a class="page-link" th:href="@{/funcionario(size=${listaFuncionario.size}, page=${numeroPagina})}"
+			        th:text=${numeroPagina}></a>
+			    </li>
+		    </ul>
+		</nav>
+	</div>
+</body>
+</html>

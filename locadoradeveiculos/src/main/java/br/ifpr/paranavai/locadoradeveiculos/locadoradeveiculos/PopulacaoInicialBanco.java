@@ -12,6 +12,8 @@ import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.Carros;
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.CarrosRepositorio;
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.Cliente;
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.ClienteRepositorio;
+import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.Funcionario;
+import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.FuncionarioRepositorio;
 
 @Component
 @Transactional
@@ -22,6 +24,9 @@ public class PopulacaoInicialBanco implements CommandLineRunner {
 	
 	@Autowired
 	private ClienteRepositorio clienteRepositorio;
+	
+	@Autowired
+	private FuncionarioRepositorio funcionarioRepositorio;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -56,6 +61,15 @@ public class PopulacaoInicialBanco implements CommandLineRunner {
 		
 		clienteRepositorio.save(cliente1);
 		clienteRepositorio.save(cliente2);
+		
+		Funcionario funfionario = new Funcionario("Adriel");
+		funfionario.setUsuario("adriel");
+		funfionario.setSenha("123"); 
+		funfionario.setEmail("adriel@locadoradeveiculosteste.com.br");
+		funfionario.setTelefone("41123456789");
+		
+	
+		funcionarioRepositorio.save(funfionario);
 		
 	}
 

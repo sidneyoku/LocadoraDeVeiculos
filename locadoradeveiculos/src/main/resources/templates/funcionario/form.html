@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8" />
+<title>Sistema de Locadora de Veículos</title>
+
+<!--/*/ <th:block th:include="fragments/geral.html :: headerfiles">
+        </th:block> /*/-->
+</head>
+<body>
+	<header th:insert="fragments/geral.html :: header"></header>
+
+	<div class="container my-2">
+		<h2>Editar Funcionario</h2>
+		<form action="#" th:action="@{/funcionario/salvar}" th:object="${funcionario}" method="POST">
+			<input type="hidden" id="id" th:field="*{id}">
+			
+			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"></span>
+			<input type="text" th:field="*{nome}" placeholder="Nome" class="form-control mb-4 col-4">
+      		
+      		<span th:if="${#fields.hasErrors('usuario')}" th:errors="usuario" class="text-danger"></span>
+			<input type="text" th:field="*{usuario}" placeholder="Usuario" class="form-control mb-4 col-4">
+      	 	
+           <span th:if="${#fields.hasErrors('senha')}" th:errors="senha" class="text-danger"></span>
+			<input type="text" th:field="*{senha}" placeholder="Senha" class="form-control mb-4 col-4">
+      	 	 
+      		<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+			<input type="text" th:field="*{email}" placeholder="E-mail" class="form-control mb-4 col-4">
+      		
+      		<span th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}" class="text-danger"></span>
+      		<input type="text" th:field="*{telefone}" placeholder="Telefone" class="form-control mb-4 col-4">
+      		
+			<button type="submit" class="btn btn-info col-2">Salvar</button>
+		</form>
+		<hr>
+		<a th:href="@{/funcionario}">Retornar para a lista de funcionarios</a>
+	</div>
+</body>
+</html>
