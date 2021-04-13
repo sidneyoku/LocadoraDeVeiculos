@@ -6,6 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.Carros;
@@ -14,6 +15,7 @@ import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.Cliente;
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.ClienteRepositorio;
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.Funcionario;
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.FuncionarioRepositorio;
+import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.seguranca.Role;
 
 @Component
 @Transactional
@@ -27,6 +29,9 @@ public class PopulacaoInicialBanco implements CommandLineRunner {
 	
 	@Autowired
 	private FuncionarioRepositorio funcionarioRepositorio;
+	
+	@Autowired
+	private PasswordEncoder encoder;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -63,8 +68,9 @@ public class PopulacaoInicialBanco implements CommandLineRunner {
 		clienteRepositorio.save(cliente2);
 		
 		Funcionario funfionario = new Funcionario("Adriel");
-		funfionario.setUsuario("adriel");
-		funfionario.setSenha("123"); 
+		funfionario.setUsername("adriel");
+		funfionario.setSenha(encoder.encode("123")); 
+		funfionario.setRole(Role.ADMIN.getNome());
 		funfionario.setEmail("adriel@locadoradeveiculosteste.com.br");
 		funfionario.setTelefone("41123456789");
 		

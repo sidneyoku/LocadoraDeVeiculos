@@ -18,8 +18,8 @@
 			<span th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"></span>
 			<input type="text" th:field="*{nome}" placeholder="Nome" class="form-control mb-4 col-4">
       		
-      		<span th:if="${#fields.hasErrors('usuario')}" th:errors="usuario" class="text-danger"></span>
-			<input type="text" th:field="*{usuario}" placeholder="Usuario" class="form-control mb-4 col-4">
+      		<span th:if="${#fields.hasErrors('username')}" th:errors="usuario" class="text-danger"></span>
+			<input type="text" th:field="*{username}" placeholder="Usuario" class="form-control mb-4 col-4">
       	 	
            <span th:if="${#fields.hasErrors('senha')}" th:errors="senha" class="text-danger"></span>
 			<input type="text" th:field="*{senha}" placeholder="Senha" class="form-control mb-4 col-4">

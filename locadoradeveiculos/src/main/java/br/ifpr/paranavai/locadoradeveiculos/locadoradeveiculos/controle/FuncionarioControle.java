@@ -1,5 +1,6 @@
 package br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.controle;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -18,10 +19,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+ 
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.Funcionario;
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.FuncionarioRepositorio;
-import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.dtos.FuncionarioListaDTO;  
+import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.dtos.CarrosListaDTO; 
 
 @Controller
 public class FuncionarioControle {
@@ -32,24 +33,23 @@ public class FuncionarioControle {
 		this.funcionarioRepositorio = funcionarioRepositorio;
 	}
 	
+	@GetMapping("/login")
+	public String login(Principal principal) {
+        if (principal != null) {
+            return "redirect:/home";
+        }
+        return "/login";
+    }
+	
+	@GetMapping("/home")
+	public String home(Principal principal) {
+        return "/home";
+    }
+	 
+	 
 	@GetMapping("/funcionario")
-	public String pessoas(Model model, @RequestParam("page") Optional<Integer> pagina, @RequestParam("size") Optional<Integer> tamanho) {
-		int paginaAtual = pagina.orElse(1) - 1;
-		int tamanhoPagina = tamanho.orElse(5);
-		
-		PageRequest requisicao = PageRequest.of(paginaAtual, tamanhoPagina, Sort.by("nome"));
-		Page<FuncionarioListaDTO> listaPaginada = funcionarioRepositorio.findAllFuncionarioListaPaginado(requisicao);
-		
-		model.addAttribute("listaFuncionario", listaPaginada);
-
-		int totalPaginas = listaPaginada.getTotalPages();
-		if (totalPaginas > 0) {
-			List<Integer> numerosPaginas = IntStream.rangeClosed(1, totalPaginas)
-						.boxed()
-						.collect(Collectors.toList());
-			model.addAttribute("numerosPaginas", numerosPaginas);
-		}
-		
+	public String usuarios(Model model) {
+		model.addAttribute("listaUsuarios", funcionarioRepositorio.findAll());
 		return "funcionario/index";
 	}
 	
@@ -61,7 +61,7 @@ public class FuncionarioControle {
 	
 	@GetMapping("/funcionario/{id}")
 	public String alterarFuncionario(@PathVariable("id") long id, Model model) {
-		Optional<Funcionario> funcionarioOpt = funcionarioRepositorio.findCompletoById(id);
+		Optional<Funcionario> funcionarioOpt = funcionarioRepositorio.findById(id);
 		if (!funcionarioOpt.isPresent()) {
 			throw new IllegalArgumentException("Funcionario inválido.");
 		}
@@ -70,6 +70,7 @@ public class FuncionarioControle {
 		return "funcionario/form";
 	}
 	
+ 
 	@PostMapping("/funcionario/salvar")
 	public String salvarFuncionario(@Valid @ModelAttribute("funcionario") Funcionario funcionario, BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {

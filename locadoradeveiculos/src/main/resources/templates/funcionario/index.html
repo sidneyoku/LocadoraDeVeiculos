@@ -17,18 +17,17 @@
 		<table border="1" class="table table-striped table-responsive-md">
 			<thead>
 				<tr>
-					<th>Nome</th>
-					<th>Data Nascimento</th>
+					<th>Username</th>
+					<th>Role</th>
 					<th>Ações</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr th:each="funcionario : ${listaFuncionario.content}">
-					<td th:text="${funcionario.nome}"></td>
-					<td th:text="${funcionario.usuario}"></td>
+				<tr th:each="usuario : ${listaUsuarios}">
+					<td th:text="${usuario.username}"></td>
+					<td th:text="${usuario.role}"></td>
 					<td>
-						<a th:href="@{/funcionario/{id}(id=${funcionario.id})}" class="btn btn-primary">Alterar</a>
-						<a th:href="@{/funcionario/excluir/{id}(id=${funcionario.id})}" class="btn btn-danger">Excluir</a>			
+						<a th:href="@{/adm/usuarios/excluir/{id}(id=${usuario.id})}" class="btn btn-danger">Excluir</a>			
 					</td>
 				</tr>
 			</tbody>

@@ -1,5 +1,6 @@
 package br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.controle;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -32,6 +33,14 @@ public class CarrosControle {
 		this.carrosRepositorio = carrosRepositorio;
 	}
 	
+	@GetMapping("/inicio/home")
+	public String login(Principal principal) {
+        if (principal != null) {
+            return "redirect:/home";
+        }
+        return "/inicio/home";
+    }
+	
 	@GetMapping("/veiculos/carros")
 	public String pessoas(Model model, @RequestParam("page") Optional<Integer> pagina, @RequestParam("size") Optional<Integer> tamanho) {
 		int paginaAtual = pagina.orElse(1) - 1;
@@ -53,6 +62,7 @@ public class CarrosControle {
 		return "veiculos/carros/index";
 	}
 	
+	 
 	@GetMapping("/veiculos/carros/novo")
 	public String novoCarro(Model model) {
 		model.addAttribute("carros", new Carros(""));
