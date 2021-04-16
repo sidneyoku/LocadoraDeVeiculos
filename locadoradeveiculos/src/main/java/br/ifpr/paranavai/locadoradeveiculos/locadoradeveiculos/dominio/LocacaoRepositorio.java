@@ -16,11 +16,11 @@ import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.dtos.Loca
 public interface LocacaoRepositorio extends JpaRepository<Locacao, Long> {
 
 	
-	@Query("select new br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.dtos.LocacaoListaDTO(p.id, p.inicioLocacao, p.fimLocacao, d.nome, ec.nome)"
+	@Query("select new br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.dtos.LocacaoListaDTO(p.id, p.inicioLocacao, p.fimLocacao, d.nome, ec.nome, p.status)"
 			+ "from Locacao p left join p.carro d left join p.cliente ec")
 	List<LocacaoListaDTO> findAllLocacaoLista();
 	
-	@Query(value = "select new br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.dtos.LocacaoListaDTO(p.id, p.inicioLocacao, p.fimLocacao, d.nome, ec.nome)"
+	@Query(value = "select new br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.dtos.LocacaoListaDTO(p.id, p.inicioLocacao, p.fimLocacao, d.nome, ec.nome, p.status)"
 			+ "from Locacao p left join p.carro d left join p.cliente ec ", countQuery = "select count(p) from Locacao p")
 	Page<LocacaoListaDTO> findAllLocacaoListaPaginado(Pageable pageable);
 	

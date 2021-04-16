@@ -89,12 +89,14 @@ public class PopulacaoInicialBanco implements CommandLineRunner {
 		loc.setInicioLocacao(LocalDate.now());
 		loc.setCliente(cliente2);
 		loc.setFimLocacao(LocalDate.now());
+		loc.setStatus("Locado");
 		loc.setCarro(carros1);
 		
 		locacaoRepositorio.save(loc);
 		
 		loc2.setInicioLocacao(LocalDate.now());
 		loc2.setCliente(cliente1);
+		loc2.setStatus("Locado");
 		loc2.setFimLocacao(LocalDate.now());
 		loc2.setCarro(carros2);
 		

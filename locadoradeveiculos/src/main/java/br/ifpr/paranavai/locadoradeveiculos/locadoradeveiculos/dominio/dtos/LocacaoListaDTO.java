@@ -6,17 +6,42 @@ import java.time.LocalDate;
 public class LocacaoListaDTO {
 	private Long id;
 	private String carro;
+	private String status;
 	private String cliente;
 	private LocalDate inicioLocacao;	
 	private LocalDate fimLocacao;
-	
-	public LocacaoListaDTO(Long id, LocalDate inicioLocacao, LocalDate fimLocacao, String carro, String cliente) {
+
+	public LocacaoListaDTO(Long id, LocalDate inicioLocacao, LocalDate fimLocacao, String carro, String cliente, String status) {
 		this.id = id;
 		this.carro = carro;
 		this.inicioLocacao = inicioLocacao;
 		this.fimLocacao = fimLocacao;
 		this.cliente = cliente;
+		this.status = status;
 	}
+
+
+
+
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+
+
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+
+
+
 
 	public String getCliente() {
 		return cliente;
@@ -59,5 +84,5 @@ public class LocacaoListaDTO {
 	}
 
 
-	
+
 }

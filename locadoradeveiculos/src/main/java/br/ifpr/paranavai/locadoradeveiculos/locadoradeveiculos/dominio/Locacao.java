@@ -32,6 +32,18 @@ public class Locacao {
 	@Column(nullable = false)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate fimLocacao;
+	
+	private String status;
+	
+	
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 	public Long getId() {
 		return id;
