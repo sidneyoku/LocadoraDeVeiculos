@@ -15,6 +15,8 @@ import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.Cliente;
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.ClienteRepositorio;
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.Funcionario;
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.FuncionarioRepositorio;
+import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.Locacao;
+import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.dominio.LocacaoRepositorio;
 import br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.seguranca.Role;
 
 @Component
@@ -29,6 +31,9 @@ public class PopulacaoInicialBanco implements CommandLineRunner {
 	
 	@Autowired
 	private FuncionarioRepositorio funcionarioRepositorio;
+	
+	@Autowired
+	private LocacaoRepositorio locacaoRepositorio;
 	
 	@Autowired
 	private PasswordEncoder encoder;
@@ -51,6 +56,7 @@ public class PopulacaoInicialBanco implements CommandLineRunner {
 		
 		carrosRepositorio.save(carros1);
 		carrosRepositorio.save(carros2);
+		carrosRepositorio.flush();
 		
 		Cliente cliente1 = new Cliente("Sidney");
 		cliente1.setDataNascimento(LocalDate.now());
@@ -77,6 +83,22 @@ public class PopulacaoInicialBanco implements CommandLineRunner {
 	
 		funcionarioRepositorio.save(funfionario);
 		
+		Locacao loc = new Locacao();
+		Locacao loc2 = new Locacao();
+		
+		loc.setInicioLocacao(LocalDate.now());
+		loc.setCliente(cliente2);
+		loc.setFimLocacao(LocalDate.now());
+		loc.setCarro(carros1);
+		
+		locacaoRepositorio.save(loc);
+		
+		loc2.setInicioLocacao(LocalDate.now());
+		loc2.setCliente(cliente1);
+		loc2.setFimLocacao(LocalDate.now());
+		loc2.setCarro(carros2);
+		
+		locacaoRepositorio.save(loc2);
 	}
 
 }

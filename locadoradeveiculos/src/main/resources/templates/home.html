@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8" />
 <title>Locação de Veículo</title>
@@ -14,14 +15,14 @@
 			<div class="col">
 				<div class="card mb-4 shadow-sm">
 					<div class="card-header">
-						<h4 class="my-0 fw-normal">RH</h4>
+						<h4 class="my-0 fw-normal">Veículos</h4>
 					</div>
 					<div class="card-body">
 						<ul class="list-unstyled mt-3 mb-4">
-							<li>Controle de Recursos Humanos</li>
-							<li>Controle de Departamentos</li>
+							<li>Controle de Veículos</li>
 						</ul>
-						<a class="w-100 btn btn-lg btn-primary" th:href="@{/veiculo}">Acessar</a>
+						<a class="w-100 btn btn-lg btn-primary"
+							th:href="@{/veiculos/carros}">Acessar</a>
 					</div>
 				</div>
 			</div>
@@ -29,15 +30,42 @@
 				<div class="col">
 					<div class="card mb-4 shadow-sm">
 						<div class="card-header">
-							<h4 class="my-0 fw-normal">Administrativo</h4>
+							<h4 class="my-0 fw-normal">Clientes</h4>
 						</div>
 						<div class="card-body">
 							<ul class="list-unstyled mt-3 mb-4">
-								<li>Controle de Usuários</li>
-								<li>Administração do Sistema</li>
+								<li>Controle de Clientes</li>
 							</ul>
-							<a class="w-100 btn btn-lg btn-primary" th:href="@{usuarios}">Acessar</a>
+							<a class="w-100 btn btn-lg btn-primary" th:href="@{/cliente}">Acessar</a>
 						</div>
+					</div>
+				</div>
+			</div>
+			<div sec:authorize="hasAuthority('ADMIN')">
+				<div class="col">
+					<div class="card mb-4 shadow-sm">
+						<div class="card-header">
+							<h4 class="my-0 fw-normal">Funcionários</h4>
+						</div>
+						<div class="card-body">
+							<ul class="list-unstyled mt-3 mb-4">
+								<li>Controle de Funcionários</li>
+							</ul>
+							<a class="w-100 btn btn-lg btn-primary" th:href="@{/funcionario}">Acessar</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="card mb-4 shadow-sm">
+					<div class="card-header">
+						<h4 class="my-0 fw-normal">Locações</h4>
+					</div>
+					<div class="card-body">
+						<ul class="list-unstyled mt-3 mb-4">
+							<li>Controle de Locações</li>
+						</ul>
+						<a class="w-100 btn btn-lg btn-primary" th:href="@{/locacoes}">Acessar</a>
 					</div>
 				</div>
 			</div>

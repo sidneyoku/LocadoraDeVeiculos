@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8" />
+<title>Sistema de Locadora de Veículos</title>
+
+<!--/*/ <th:block th:include="fragments/geral.html :: headerfiles">
+        </th:block> /*/-->
+
+</head>
+<body>
+	<header th:insert="fragments/geral.html :: header"></header>
+
+	<div class="container my-2">
+		<a th:href="@{/locacoes/nova}" class="btn btn-primary btn-sm mb-3">Incluir
+			Locação</a>
+		<h1>Cadastro de Locação</h1>
+		<table border="1" class="table table-striped table-responsive-md">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Veículo</th>
+					<th>Cliente</th>
+					<th>Data Inicio</th>
+					<th>Data Fim</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="locacao : ${listaLocacao.content}">
+					<td th:text="${locacao.id}"></td>
+					<td th:text="${locacao.carro}"></td>
+					<td th:text="${locacao.cliente}"></td>
+					<td th:text="${locacao.inicioLocacao}"></td>
+					<td th:text="${locacao.fimLocacao}"></td>
+					<td><a th:href="@{/locacoes/{id}(id=${locacao.id})}"
+						class="btn btn-primary">Alterar</a> <a
+						th:href="@{/locacoes/excluir/{id}(id=${locacao.id})}"
+						class="btn btn-danger">Excluir</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<nav aria-label="...">
+			<ul class="pagination">
+				<li th:if="${listaLocacao.totalPages > 0}"
+					th:each="numeroPagina : ${numerosPaginas}"
+					th:class="${numeroPagina==listaLocacao.number + 1} ? 'page-item active' : 'page-item'">
+					<a class="page-link"
+					th:href="@{/locacoes(size=${listaLocacao.size}, page=${numeroPagina})}"
+					th:text=${numeroPagina}></a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</body>
+</html>

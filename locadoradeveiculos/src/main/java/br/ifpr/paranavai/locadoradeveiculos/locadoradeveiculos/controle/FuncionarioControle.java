@@ -1,4 +1,4 @@
-package br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.controle;
+ package br.ifpr.paranavai.locadoradeveiculos.locadoradeveiculos.controle;
 
 import java.security.Principal;
 import java.util.List;
@@ -63,7 +63,7 @@ public class FuncionarioControle {
 	public String alterarFuncionario(@PathVariable("id") long id, Model model) {
 		Optional<Funcionario> funcionarioOpt = funcionarioRepositorio.findById(id);
 		if (!funcionarioOpt.isPresent()) {
-			throw new IllegalArgumentException("Funcionario inválido.");
+			throw new IllegalArgumentException("Funcionario invÃ¡lido.");
 		}
 		
 		model.addAttribute("funcionario", funcionarioOpt.get());
@@ -88,7 +88,7 @@ public class FuncionarioControle {
 			funcionarioRepositorio.delete(funcionarioOpt.get());
 			return "redirect:/funcionario";
 		} else {
-			throw new IllegalArgumentException("Funcionario inválido.");
+			throw new IllegalArgumentException("Funcionario invÃ¡lido.");
 		}
 	}
 
